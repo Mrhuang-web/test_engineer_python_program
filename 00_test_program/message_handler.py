@@ -1,0 +1,107 @@
+# message_handler.py
+from utils import bytes_to_hex
+from logger import setup_logger
+
+logger = setup_logger('message_handler', 'logs/message_handler.log')
+
+class MessageHandler:
+    def __init__(self, response_config=None):
+        """
+        初始化消息处理器。
+        :param response_config: 响应配置字典
+        """
+        self.response_config = response_config or {}
+        logger.info("消息处理器初始化完成")
+
+    def extract_messages(self, data, start_byte=0x7e, end_byte=0x0d):
+        """
+        从接收到的数据中提取以指定字节起始和结尾的报文。
+        :param data: 接收到的字节数据
+        :param start_byte: 起始字节，默认0x7e
+        :param end_byte: 结尾字节，默认0x0d
+        :return: 提取到的报文列表，每个元素是一个bytes对象
+        """
+        messages = []
+        data_bytes = bytes(data)
+        i = 0
+
+        while i < len(data_bytes):
+            if data_bytes[i] == start_byte:
+                for j in range(i + 1, len(data_bytes)):
+                    if data_bytes[j] == end_byte:
+                        message = data_bytes[i:j + 1]
+                        messages.append(message)
+                        logger.debug(f"提取到报文: {bytes_to_hex(message)}")
+                        i = j + 1
+                        break
+                else:
+                    i += 1
+            else:
+                i += 1
+
+        logger.info(f"共提取到 {len(messages)} 条报文")
+        return messages
+
+    def extract_command_code(self, data, start_offset=12, length=4):
+        """
+        从报文中提取命令码。
+        :param data: 接收到的字节数据
+        :param start_offset: 起始偏移量（字节位置，从0开始，不包括起始字节）
+        :param length: 要提取的长度（字节数）
+        :return: 提取的16进制字符串，如果位置超出范围返回None
+        """
+        try:
+            data_bytes = bytes(data)
+            if len(data_bytes) == 0 or data_bytes[0] != 0x7e:
+                logger.warning("无法提取命令码，报文格式可能不正确")
+                return None
+
+            actual_start = start_offset + 1
+            actual_end = actual_start + length
+
+            if actual_end > len(data_bytes):
+                logger.warning("提取命令码时超出数据范围")
+                return None
+
+            extracted_bytes = data_bytes[actual_start:actual_end]
+            command_code = bytes_to_hex(extracted_bytes)
+            logger.info(f"提取到的命令码: {command_code}")
+            return command_code
+        except Exception as e:
+            logger.error(f"提取命令码时出错: {e}")
+            return None
+
+    def validate_message(self, data):
+        """
+        消息校验函数。
+        :param data: 接收到的字节数据
+        :return: 校验通过返回响应消息字符串，校验失败返回None
+        """
+        command_code = self.extract_command_code(data)
+        if not command_code:
+            logger.warning("无法提取命令码，报文格式可能不正确")
+            return None
+
+        response_msg = self.response_config.get(command_code)
+        if not response_msg:
+            logger.warning(f"警告: 命令码 {command_code} 对应的响应消息不存在，使用默认消息")
+            response_msg = self.response_config.get('default_message')
+            if not response_msg:
+                logger.error("错误: 默认响应消息也不存在")
+                return None
+
+        return response_msg
+
+    def generate_response(self, data):
+        """
+        生成响应消息函数。
+        :param data: 接收到的字节数据
+        :return: 响应消息的字节流
+        """
+        response_msg = self.validate_message(data)
+        if response_msg:
+            logger.info("生成响应消息成功")
+            return bytes.fromhex(response_msg)
+        else:
+            logger.warning("生成响应消息失败")
+            return None
