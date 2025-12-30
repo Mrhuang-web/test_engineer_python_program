@@ -1,13 +1,6 @@
 # message_handler.py
 from logger import setup_logger
 from utils import bytes_to_hex
-
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> f8126fd90caacb3ab48d3cd52149f2be24dd7a3a
 class MessageHandler:
     logger = setup_logger('message_handler', 'logs/message_handler.log')
 
@@ -105,25 +98,23 @@ class MessageHandler:
                 return None
         return response_msg
 
-<<<<<<< HEAD
+
     async def generate_response(self, data):
-=======
-    def generate_response(self, data):
-        """
-        生成响应消息函数
-        Args:
-            data: 接收到的字节数据
-        Returns:
-            bytes: 响应消息的字节流
-        """
-        # TODO: 在此处添加响应消息生成逻辑
-        # 例如：根据接收到的消息内容生成不同的响应
-        # 默认返回None，将使用default_message
->>>>>>> f8126fd90caacb3ab48d3cd52149f2be24dd7a3a
-        response_msg = self.validate_message(data)
-        if response_msg:
-            self.logger.info("生成响应消息成功")
-            return bytes.fromhex(response_msg)
-        else:
-            self.logger.warning("生成响应消息失败")
-            return None
+        def generate_response(self, data):
+            """
+            生成响应消息函数
+            Args:
+                data: 接收到的字节数据
+            Returns:
+                bytes: 响应消息的字节流
+            """
+            # TODO: 在此处添加响应消息生成逻辑
+            # 例如：根据接收到的消息内容生成不同的响应
+            # 默认返回None，将使用default_message
+            response_msg = self.validate_message(data)
+            if response_msg:
+                self.logger.info("生成响应消息成功")
+                return bytes.fromhex(response_msg)
+            else:
+                self.logger.warning("生成响应消息失败")
+                return None

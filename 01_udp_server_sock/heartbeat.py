@@ -16,6 +16,7 @@ class HeartbeatSender:
         heartbeat_interval: 心跳包发送间隔（秒），默认60秒
         heartbeat_hex: 心跳包16进制码流  -- 有无限制格式？
     """
+
     def __init__(self, clients, interval=60, heartbeat_hex=None):
         self.clients = clients
         self.interval = interval
@@ -35,10 +36,8 @@ class HeartbeatSender:
             await asyncio.sleep(self.interval)
 
     def start(self):
-<<<<<<< HEAD
         self.task = asyncio.create_task(self._send_heartbeat())
         logger.info("心跳包发送器已启动")
-=======
         self.periodic_callback = PeriodicCallback(self._send_heartbeat, self.interval * 1000)
         self.periodic_callback.start()
         self.logger.info("心跳包发送器已启动")
@@ -56,7 +55,6 @@ class HeartbeatSender:
             except Exception as e:
                 self.logger.error(f"发送心跳包失败: {e}")
                 self.clients.discard(addr)
->>>>>>> f8126fd90caacb3ab48d3cd52149f2be24dd7a3a
 
     def stop(self):
         if self.task:
