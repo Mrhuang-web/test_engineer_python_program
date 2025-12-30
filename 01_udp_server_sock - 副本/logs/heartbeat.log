@@ -1,0 +1,39 @@
+2025-12-28 00:49:59,571 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 00:49:59,571 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 00:51:15,514 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 00:51:15,514 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 01:47:06,279 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 01:47:06,279 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:19:14,383 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:19:14,383 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:24:48,386 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:24:48,386 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:27:06,724 - heartbeat - INFO - 心跳包发送器已停止
+2025-12-28 02:27:06,890 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:27:06,891 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:27:12,233 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:27:12,233 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:28:48,543 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:28:48,543 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:29:18,037 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:29:18,037 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:32:42,523 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:32:42,526 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:33:42,530 - heartbeat - ERROR - 发送心跳包失败: 'coroutine' object has no attribute 'sendto'
+2025-12-28 02:33:53,733 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:33:53,735 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:34:53,742 - heartbeat - ERROR - 发送心跳包失败: 'coroutine' object has no attribute 'sendto'
+2025-12-28 02:35:13,885 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:35:13,888 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:36:13,902 - heartbeat - ERROR - 发送心跳包失败: 'coroutine' object has no attribute 'sendto'
+2025-12-28 02:37:04,692 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:37:04,694 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:38:04,694 - heartbeat - ERROR - 发送心跳包失败: 'coroutine' object has no attribute 'sendto'
+2025-12-28 02:39:04,705 - heartbeat - ERROR - 发送心跳包失败: 'coroutine' object has no attribute 'sendto'
+2025-12-28 02:39:37,224 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:39:37,226 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:42:18,721 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:42:18,723 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:43:09,525 - heartbeat - INFO - 心跳包发送器初始化完成
+2025-12-28 02:43:09,528 - heartbeat - INFO - 心跳包发送器已启动
+2025-12-28 02:46:34,410 - heartbeat - INFO - 心跳包发送器初始化完成
