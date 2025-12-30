@@ -14,6 +14,10 @@
         当前应用场景中：
             （前提要客户端先下行过来，这样才会回给client）
             服务端通过 sock 向 clients 中的每个客户端发送心跳包，以检测客户端是否仍然在线
+        疑问：
+            那客户端也需要给服务端发送心跳包吗？
+                客户端需要给服务端发送心跳包，以告知服务端它仍然在线。服务端通过接收客户端的心跳包来判断客户端是否仍然在线。
+            当前fsu - 就是sock （clients -> 服务端需要维护的客户端地址集合）
 
 
 logger.py
@@ -25,13 +29,13 @@ config_loader.py
 utils.py
     功能：提供字节和十六进制的转换工具。
     核心：支持异步日志记录，记录转换过程。
-message_handler.py
-    功能：解析客户端请求并生成响应消息。
-    核心：支持异步消息处理，包括报文提取、命令码提取、消息校验和响应生成。
 heartbeat.py
     功能：定时发送心跳包。
     核心：使用 Tornado 的 PeriodicCallback 实现异步定时任务。
-client_request_handler.py 
+message_handler.py
+    功能：解析客户端请求并生成响应消息。
+    核心：支持异步消息处理，包括报文提取、命令码提取、消息校验和响应生成。
+client_request_handler.py(引用message_hanlder的构造)
     功能：接收 UDP socket 和消息处理器对象，用于后续处理客户端请求
 udp_server.py
     功能：UDP 服务器的具体实现逻辑，包括监听端口、接收数据、处理请求和发送响应

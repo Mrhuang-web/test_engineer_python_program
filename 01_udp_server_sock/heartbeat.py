@@ -11,7 +11,7 @@ class HeartbeatSender:
         sock: UDP socket对象
         clients: 客户端地址集合（线程安全的集合）
         heartbeat_interval: 心跳包发送间隔（秒），默认60秒
-        heartbeat_hex: 心跳包16进制码流
+        heartbeat_hex: 心跳包16进制码流  -- 有无限制格式？
     """
     def __init__(self, sock, clients, interval=60, heartbeat_hex=None):
         self.sock = sock
@@ -28,6 +28,10 @@ class HeartbeatSender:
         self.logger.info("心跳包发送器已启动")
 
     def _send_heartbeat(self):
+        """
+        内部方法：发送心跳包到所有客户端
+        可以添加判断次数 - 超过多少次再删除该客户端
+        """
         clients_copy = list(self.clients)
         for addr in clients_copy:
             try:
