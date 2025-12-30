@@ -1,0 +1,14 @@
+{
+    "server": {
+        "host": "0.0.0.0",
+        "port": 8081
+    },
+    "heartbeat": {
+        "interval": 60,
+        "hex": "01020304"
+    },
+    "response": {
+        "default_message": "41424344"
+    }
+}
+
