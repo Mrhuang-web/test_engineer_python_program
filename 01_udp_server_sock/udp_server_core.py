@@ -6,7 +6,6 @@ import hashlib
 
 logger = setup_logger('udp_server_core', 'logs/udp_server_core.log')
 
-
 class UDPServer:
     def __init__(self, host, port, message_handler, client_request_handler):
         self.host = host
@@ -28,11 +27,6 @@ class UDPServer:
             self.transport.close()
         logger.info("UDP服务器已停止")
 
-    async def stop(self):
-        if self.transport:
-            self.transport.close()
-        logger.info("UDP服务器已停止")
-
 
 class DatagramHandler:
     def __init__(self, message_handler, client_request_handler):
@@ -47,8 +41,7 @@ class DatagramHandler:
     def datagram_received(self, data, addr):
         current_time = time.time()
         # 清理过期的请求记录
-        self.processed_requests = {k: v for k, v in self.processed_requests.items() if
-                                   current_time - v < self.request_timeout}
+        self.processed_requests = {k: v for k, v in self.processed_requests.items() if current_time - v < self.request_timeout}
 
         request_key = hashlib.md5(data + str(addr).encode()).hexdigest()
         if request_key not in self.processed_requests:

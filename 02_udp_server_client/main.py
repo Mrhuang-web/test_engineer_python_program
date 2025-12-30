@@ -5,6 +5,7 @@ from logger import setup_logger
 
 logger = setup_logger('main', 'logs/main.log')
 
+
 def main():
     # 加载客户端配置
     config = load_client_config("client_config.json")
@@ -18,6 +19,7 @@ def main():
 
     logger.info(f"启动UDP客户端，目标服务器: {server_host}:{server_port}, 发送间隔: {interval}秒")
     run_client(server_host, server_port, interval)
+
 
 if __name__ == "__main__":
     main()

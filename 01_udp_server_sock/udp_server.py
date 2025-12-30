@@ -23,6 +23,7 @@ async def main():
     heartbeat_config = config.get('heartbeat', {})
     response_config = config.get('response', {})
 
+    # 初始化心跳包发送器
     clients = set()
     heartbeat_sender = HeartbeatSender(
         clients=clients,
@@ -30,23 +31,25 @@ async def main():
         heartbeat_hex=heartbeat_config.get('hex')
     )
 
+    # 初始化 MessageHandler 并传入 heartbeat_sender
     message_handler = MessageHandler(response_config=response_config, heartbeat_sender=heartbeat_sender)
+
+    # 初始化 client_request_handler
     client_request_handler = ClientRequestHandler(None, message_handler)
 
+    # 初始化 UDP服务器
     udp_server = UDPServer(
         host=server_config.get('host', '0.0.0.0'),
         port=server_config.get('port', 8081),
         message_handler=message_handler,
         client_request_handler=client_request_handler
     )
-
     await udp_server.start()
-    heartbeat_sender.start()
 
     try:
         logger.info("UDP服务器正在运行...")
         while True:
-            await asyncio.sleep(1)
+            await asyncio.sleep(1)  # 防止事件循环退出
     except KeyboardInterrupt:
         logger.info("停止服务器...")
         await udp_server.stop()
