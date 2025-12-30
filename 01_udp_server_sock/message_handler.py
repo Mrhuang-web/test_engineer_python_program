@@ -3,8 +3,11 @@ from logger import setup_logger
 from utils import bytes_to_hex
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f8126fd90caacb3ab48d3cd52149f2be24dd7a3a
 class MessageHandler:
     logger = setup_logger('message_handler', 'logs/message_handler.log')
 
@@ -14,6 +17,16 @@ class MessageHandler:
         self.logger.info("消息处理器初始化完成")
 
     def extract_messages(self, data, start_byte=0x7e, end_byte=0x0d):
+        """
+        从接收到的数据中提取以指定字节起始和结尾的报文
+        Args:
+            data: 接收到的字节数据
+            start_byte: 起始字节，默认0x7e
+            end_byte: 结尾字节，默认0x0d
+
+        Returns:
+            list: 提取到的报文列表，每个元素是一个bytes对象
+        """
         messages = []
         data_bytes = bytes(data)
         i = 0
@@ -34,6 +47,19 @@ class MessageHandler:
         return messages
 
     def extract_command_code(self, data, start_offset=12, length=4):
+        """
+        从报文中提取命令码
+        从示例报文 7e3130303138303438323030454630453030303030303030303030464143380d 来看
+        46304530 位于字节位置13（包含7e），跳过7e后是位置12（从0开始计数）
+
+        Args:
+            data: 接收到的字节数据
+            start_offset: 起始偏移量（字节位置，从0开始，不包括7e起始字节）
+            length: 要提取的长度（字节数）
+
+        Returns:
+            str: 提取的16进制字符串，如果位置超出范围返回None
+        """
         try:
             data_bytes = bytes(data)
             if len(data_bytes) == 0 or data_bytes[0] != 0x7e:
@@ -53,6 +79,19 @@ class MessageHandler:
             return None
 
     def validate_message(self, data):
+        """
+        消息校验函数
+        在此处添加您的消息校验逻辑
+        示例报文: 7e3130303138303438323030454630453030303030303030303030464143380d
+        需要提取46304530位置的字符串来判断请求类型
+
+        Args:
+            data: 接收到的字节数据 7e开头 0d结尾 这里需要校验是什么请求以达到不同响应的分发
+            response_config: 响应配置字典，包含各种响应消息
+
+        Returns:
+            str or None: 校验通过返回响应消息字符串，校验失败返回None
+        """
         command_code = self.extract_command_code(data)
         if not command_code:
             self.logger.warning("无法提取命令码，报文格式可能不正确")
@@ -66,7 +105,21 @@ class MessageHandler:
                 return None
         return response_msg
 
+<<<<<<< HEAD
     async def generate_response(self, data):
+=======
+    def generate_response(self, data):
+        """
+        生成响应消息函数
+        Args:
+            data: 接收到的字节数据
+        Returns:
+            bytes: 响应消息的字节流
+        """
+        # TODO: 在此处添加响应消息生成逻辑
+        # 例如：根据接收到的消息内容生成不同的响应
+        # 默认返回None，将使用default_message
+>>>>>>> f8126fd90caacb3ab48d3cd52149f2be24dd7a3a
         response_msg = self.validate_message(data)
         if response_msg:
             self.logger.info("生成响应消息成功")
